@@ -3,10 +3,13 @@ package pe.edu.upeu.syscenterlife.service;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import pe.edu.upeu.syscenterlife.dao.ClienteDao;
 import pe.edu.upeu.syscenterlife.modelo.Cliente;
 
 @Service
 public class ClienteService {
+    
+     ClienteDao clienteDao;
 
     List<Cliente> listaCli = new ArrayList<>();
 
@@ -15,7 +18,8 @@ public class ClienteService {
     }
 
     public List<Cliente> listarEntidad() {
-        return listaCli;
+        clienteDao=new ClienteDao();
+        return clienteDao.listarCliente();
     }
 
     public Cliente buscarCliente(String dnirucx) {
