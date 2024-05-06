@@ -17,7 +17,7 @@ public class ConnS {
     private ConnS() {
         try {
             Class.forName("org.sqlite.JDBC");
-            //Class.forName("com.mysql.cj.jdbc.Driver");
+//Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConnS.class.getName()).log(Level.SEVERE,
                     null, ex);
@@ -48,10 +48,11 @@ public class ConnS {
             synchronized (ConnS.class) {
                 if (connection == null) {
                     try {
-                        //String dbUrl="jdbc:sqlite:data/db_ventas.db?foreign_keys=on;";
-                        String dbUrl = "jdbc:sqlite:" + util.getFileExterno("data",
-                                "dbcliente.db").getAbsolutePath() + "?foreign_keys=on;";
-                        //String dbUrl="jdbc:sqlite:" + getFile("admision_db.db").getAbsolutePath() + "?foreign_keys=on;";
+                        //String dbU "jdbc:sqlite:data/db_ventas.db?foreign_keys=on;";
+                        String dbUrl
+                                = "jdbc:sqlite:" + util.getFileExterno("data",
+                                        "clientedb.db").getAbsolutePath() + "?foreign_keys=on;";
+                        //String dbUrl "jdbc:sqlite:" + getFile("admision_db.db").getAbsolutePath() + "?foreign_keys=on;";
                         connection = DriverManager.getConnection(dbUrl);
                         System.out.println("Conecto exitosamente");
                     } catch (SQLException e) {
@@ -66,16 +67,17 @@ public class ConnS {
     public static void main(String[] args) {
         ConnS instance = ConnS.getInstance();
         Connection connection = instance.getConnection();
-        PreparedStatement p;
-        ResultSet r;
+        PreparedStatement ps;
+        ResultSet rs = null;
         try {
-            p=connection.prepareStatement("Select * from cliente");
-            r=p.executeQuery();
-            while (r.next()) {
-                System.out.println(r.getString("dniruc")+"\t"
-                +r.getString("nombres"));
-            }
+             ps=connection.prepareStatement("SELECT * from cliente");
+                     rs=ps.executeQuery();
+                     while (rs.next()){
+                         System.out.println(rs.getString("dniruc")+"\t"+rs.getString("Nombre")+"\t"+rs.getString("documento") );
+                     }
         } catch (Exception e) {
         }
+       
+       
     }
 }

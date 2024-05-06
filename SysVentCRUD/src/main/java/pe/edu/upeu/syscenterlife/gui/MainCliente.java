@@ -43,7 +43,7 @@ public class MainCliente extends javax.swing.JPanel {
             for (int i = 0; i < listarCleintes.size(); i++) {
                 ob[0] = i + 1;
                 ob[1] = listarCleintes.get(i).getDniruc();
-                ob[2] = listarCleintes.get(i).getNombres();
+                ob[2] = listarCleintes.get(i).getNombre();
                 ob[3] = listarCleintes.get(i).getDocumento();
                 modelo.addRow(ob);
             }
@@ -52,10 +52,10 @@ public class MainCliente extends javax.swing.JPanel {
     }
 
     public void resetForm() {
-        txtDniruc.setText("");
+        txtDni.setText("");
         txtNombre.setText("");
         cbxTipo.setSelectedIndex(0);
-        txtDniruc.requestFocus();
+        txtDni.requestFocus();
     }
 
     private void paintForm() {
@@ -65,14 +65,14 @@ public class MainCliente extends javax.swing.JPanel {
             Object valor = jTable1.getValueAt(rowx, 1);
             //ClienteTO filax = (ClienteTO)modelo.getRow(jTable1.getSelectedRow());
             Cliente d = clienteService.buscarCliente(valor.toString());
-            txtDniruc.setText(d.getDniruc());
-            txtNombre.setText(d.getNombres());
+            txtDni.setText(d.getDniruc());
+            txtNombre.setText(d.getNombre());
             cbxTipo.setSelectedItem(d.getDocumento());
-            txtDniruc.setEditable(false);
+            txtDni.setEditable(false);
             btnRegistrar.setText("Modificar");
             //guardarButton.setToolTipText("MODIFICAR");
         } else {
-            txtDniruc.setEditable(true);
+            txtDni.setEditable(true);
         }
     }
 
@@ -95,7 +95,7 @@ public class MainCliente extends javax.swing.JPanel {
         btnEliminar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtDniruc = new javax.swing.JTextField();
+        txtDni = new javax.swing.JTextField();
         siwe = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -212,9 +212,9 @@ public class MainCliente extends javax.swing.JPanel {
 
         jLabel1.setText("DNI/RUC:");
 
-        txtDniruc.addActionListener(new java.awt.event.ActionListener() {
+        txtDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDnirucActionPerformed(evt);
+                txtDniActionPerformed(evt);
             }
         });
 
@@ -240,7 +240,7 @@ public class MainCliente extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDniruc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +260,7 @@ public class MainCliente extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtDniruc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(siwe)
@@ -343,9 +343,9 @@ public class MainCliente extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDnirucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDnirucActionPerformed
+    private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDnirucActionPerformed
+    }//GEN-LAST:event_txtDniActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
@@ -359,7 +359,7 @@ public class MainCliente extends javax.swing.JPanel {
         // TODO add your handling code here:
         resetForm();
         btnRegistrar.setText("Registrar");
-        txtDniruc.setEditable(true);
+        txtDni.setEditable(true);
         jTable1.getSelectionModel().clearSelection();
 
     }//GEN-LAST:event_btnNuevoActionPerformed
@@ -389,8 +389,8 @@ public class MainCliente extends javax.swing.JPanel {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
         Cliente to = new Cliente();
-        to.setDniruc(txtDniruc.getText());
-        to.setNombres(txtNombre.getText());
+        to.setDniruc(txtDni.getText());
+        to.setNombre(txtNombre.getText());
         to.setDocumento(cbxTipo.getSelectedItem() == null ? ""
                 : cbxTipo.getSelectedItem().toString());
         int fila = jTable1.getSelectedRow();
@@ -399,7 +399,7 @@ public class MainCliente extends javax.swing.JPanel {
                 Cliente resultado = clienteService.updateEntidad(to);
                 if (resultado != null) {
                     modelo = (DefaultTableModel) jTable1.getModel();
-                    Object nuevo[] = {fila + 1, to.getDniruc(), to.getNombres(),
+                    Object nuevo[] = {fila + 1, to.getDniruc(), to.getNombre(),
                         to.getDocumento()};
                     modelo.removeRow(fila);
                     modelo.insertRow(fila, nuevo);
@@ -415,7 +415,7 @@ public class MainCliente extends javax.swing.JPanel {
                     if (clienteService.saveEntidad(to) != false) {
                         modelo = (DefaultTableModel) jTable1.getModel();
                         Object nuevo[] = {modelo.getRowCount() + 1, to.getDniruc(),
-                            to.getNombres(), to.getDocumento()};
+                            to.getNombre(), to.getDocumento()};
                         modelo.addRow(nuevo);
                         resetForm();
                     }
@@ -453,7 +453,7 @@ public class MainCliente extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel siwe;
     private javax.swing.JTextField txtDatoBuscar;
-    private javax.swing.JTextField txtDniruc;
+    private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

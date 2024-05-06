@@ -8,17 +8,15 @@ import pe.edu.upeu.syscenterlife.modelo.Cliente;
 
 @Service
 public class ClienteService {
-    
-     ClienteDao clienteDao;
+    ClienteDao clienteDao=new ClienteDao();
 
     List<Cliente> listaCli = new ArrayList<>();
 
-    public boolean saveEntidad(Cliente categoria) {
-        return this.listaCli.add(categoria);
+    public boolean saveEntidad(Cliente cliente) {
+        return clienteDao.guardarCliente(cliente)==1?true:false;
     }
 
     public List<Cliente> listarEntidad() {
-        clienteDao=new ClienteDao();
         return clienteDao.listarCliente();
     }
 
@@ -35,8 +33,8 @@ public class ClienteService {
                         -> cliente.getDniruc().equals(clientex.getDniruc())) // Filtrar por DNI
                 .findFirst() // Obtener el primer cliente que cumpla con el filtro
                 .ifPresent(cliente
-                        -> cliente.setNombres(clientex.getNombres()));
-//return this.listaCli.set(index, cliente);
+                        -> cliente.setNombre(clientex.getNombre()));
+        //return this.listaCli.set(index, cliente);
         return buscarCliente(clientex.getDniruc());
     }
 

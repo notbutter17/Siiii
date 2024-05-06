@@ -5,15 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Data
 public class Cliente {
 
 
     String dniruc;
-    String nombres;
+    String Nombre;
     String documento;    
 
 }

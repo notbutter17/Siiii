@@ -1,3 +1,4 @@
+
 package pe.edu.upeu.syscenterlife.dao;
 
 import java.sql.Connection;
@@ -8,29 +9,38 @@ import java.util.List;
 import pe.edu.upeu.syscenterlife.connx.ConnS;
 import pe.edu.upeu.syscenterlife.modelo.Cliente;
 
+
+
 public class ClienteDao {
-
     ConnS instance = ConnS.getInstance();
-    Connection connection = instance.getConnection();
-    PreparedStatement p;
-    ResultSet r;
-
-    public List<Cliente> listarCliente() {
-        List<Cliente>  lista= new ArrayList<>();
+        Connection connection = instance.getConnection();
+        PreparedStatement ps;
+        ResultSet rs = null;
+    public List<Cliente> listarCliente(){
+        List<Cliente> lista=new ArrayList<>();
         try {
-            p = connection.prepareStatement("Select * from cliente");
-            r = p.executeQuery();
-            while (r.next()) {
-               lista.add(Cliente.builder()
-                                .dniruc(r.getString("dniruc"))
-                                .nombres(r.getString("nombres"))
-                                .documento(r.getString("documento"))
-                                .build());
-            }
-            
+             ps=connection.prepareStatement("SELECT * from cliente");
+                     rs=ps.executeQuery();
+                     while (rs.next()){
+                         lista.add(Cliente.builder()
+                                 .dniruc(rs.getString("dniruc"))
+                                 .Nombre(rs.getString("nombre"))
+                                 .documento(rs.getString("documento"))
+                         .build());
+                     }
         } catch (Exception e) {
         }
-        return lista;
+        return lista; 
     }
-
+   
+    public int guardarCliente(Cliente c){
+        int result=0;
+        try {
+              ps=connection.prepareStatement("INSERT INTO cliente(dniruc, Nombre, documento) VALUES('"+c.getDniruc()+"', '"+c.getNombre()+"','"+c.getDocumento()+"')");
+       result= ps.executeUpdate();
+        } catch (Exception e) {
+            System.err.println("error :"+e.getMessage());
+        }
+        return result;
+    }
 }
